@@ -1,9 +1,6 @@
-const {
-  override,
-  addBabelPlugin,
-  addBundleVisualizer,
-  addBabelPreset,
-} = require("customize-cra")
+const { override, addBabelPlugin, addBabelPreset } = require("customize-cra")
+const path = require("path")
+const { ModuleFederationPlugin } = require("webpack").container
 
 let config = override(
   (config) => {
@@ -14,9 +11,29 @@ let config = override(
     config.optimization.chunkIds = "named"
     return config
   },
-  addBabelPlugin("@emotion/babel-plugin"),
-  addBabelPreset("@emotion/babel-preset-css-prop"),
-  process.env.ANALYZE && addBundleVisualizer(),
+  (config) => {
+    config.plugins.push(
+      new ModuleFederationPlugin({
+        name: "app3",
+        filename: "remoteEntry.js",
+        exposes: {
+          "./module-federation-test": "./src/module-federation-test",
+        },
+        shared: {
+          react: {
+            singleton: true,
+            requiredVersion: "17.0.2",
+          },
+          "react-dom": {
+            singleton: true,
+            requiredVersion: "17.0.2",
+          },
+        },
+      }),
+    )
+    config.output.publicPath = "auto"
+    return config
+  },
 )
 
 /*eslint-disable no-param-reassign */
