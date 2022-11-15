@@ -16,17 +16,17 @@ let config = override(
       new ModuleFederationPlugin({
         name: "app3",
         filename: "remoteEntry.js",
+        library: { type: "var", name: "app3" },
         exposes: {
           "./module-federation-test": "./src/module-federation-test",
+          // './newReact': require.resolve('react'),
         },
         shared: {
           react: {
-            singleton: true,
-            requiredVersion: "18.2.0",
-          },
-          "react-dom": {
-            singleton: true,
-            requiredVersion: "18.2.0",
+            import: 'react', // the "react" package will be used a provided and fallback module
+            shareKey: 'newReact', // under this name the shared module will be placed in the share scope
+            shareScope: 'default', // share scope with this name will be used
+            singleton: true, // only a single version of the shared module is allowed
           },
         },
       }),
@@ -35,6 +35,7 @@ let config = override(
     return config
   },
 )
+
 
 /*eslint-disable no-param-reassign */
 if (process.env.NODE_ENV === "test") {

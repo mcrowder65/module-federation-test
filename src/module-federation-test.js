@@ -1,4 +1,5 @@
 import React from "react"
+import ReactAdapterProvider from "src/react-adapter-provider"
 
 const ModuleFederationTest = () => {
   const id = React.useId()
@@ -10,4 +11,7 @@ const ModuleFederationTest = () => {
   )
 }
 
+export const Adapted = React.forwardRef((props, ref) => {
+  return <ReactAdapterProvider {...props} component={ModuleFederationTest} ref={ref} />;
+});
 export default ModuleFederationTest
