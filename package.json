@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "react-app-rewired build",
+    "build": "CI=false react-app-rewired build",
     "start": "react-app-rewired start"
   },
   "dependencies": {
