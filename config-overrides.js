@@ -16,7 +16,6 @@ let config = override(
       new ModuleFederationPlugin({
         name: "remotehostmyveeva",
         filename: "remoteEntry.js",
-        library: { type: "var", name: "app3" },
         exposes: {
           "./module-federation-test": "./src/module-federation-test",
           "./app-injector": "./src/app-injector",
