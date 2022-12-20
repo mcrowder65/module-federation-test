@@ -14,7 +14,7 @@ let config = override(
   (config) => {
     config.plugins.push(
       new ModuleFederationPlugin({
-        name: "remote-host-myveeva",
+        name: "remotehostmyveeva",
         filename: "remoteEntry.js",
         library: { type: "var", name: "app3" },
         exposes: {
