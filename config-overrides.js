@@ -14,7 +14,7 @@ let config = override(
   (config) => {
     config.plugins.push(
       new ModuleFederationPlugin({
-        name: "app3",
+        name: "remote-host-myveeva",
         filename: "remoteEntry.js",
         library: { type: "var", name: "app3" },
         exposes: {
@@ -41,7 +41,6 @@ let config = override(
     return config
   },
 )
-
 
 /*eslint-disable no-param-reassign */
 if (process.env.NODE_ENV === "test") {
